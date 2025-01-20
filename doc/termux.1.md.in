@@ -562,7 +562,7 @@ learn about the major differences.
     `@TERMUX_HOME@`
     :    A home directory where user can place his files.
 
-    `@TERMUX_PREFIX@`
+    `/data/data/com.termux/files/usr`
     :    The prefix - a place where all packages are being extracted during
          installation. Has a directory structure similar to the root file
          system of traditional Linux distributions.
@@ -787,7 +787,7 @@ If problem is not with the dotfiles, for example you have messed up Termux
 prefix and do not know what to do, our recommendation is *complete reinstallation*
 by executing
 
-    rm -rf @TERMUX_PREFIX@
+    rm -rf /data/data/com.termux/files/usr
 
 This will erase all packages but will not touch your home directory.
 
@@ -813,7 +813,7 @@ values.
 
     A base directory for Termux installation. It is located at
 
-        @TERMUX_PREFIX@
+        /data/data/com.termux/files/usr
 
     Do not modify the value of this environment variable. Termux packages
     are not relocatable. Some of them may also look this variable to find
@@ -825,7 +825,7 @@ values.
     Used by shells to find command line utilities. By default, it contains
     this value:
 
-        @TERMUX_PREFIX@/bin
+        /data/data/com.termux/files/usr/bin
 
     You may append or prepend your own paths if needed, for example:
 

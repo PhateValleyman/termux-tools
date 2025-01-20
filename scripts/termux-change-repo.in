@@ -1,9 +1,9 @@
-#!@TERMUX_PREFIX@/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # Setup TERMUX_APP_PACKAGE_MANAGER
-source "@TERMUX_PREFIX@/bin/termux-setup-package-manager" || exit 1
+source "/data/data/com.termux/files/usr/bin/termux-setup-package-manager" || exit 1
 
-MIRROR_BASE_DIR="@TERMUX_PREFIX@/etc/termux/mirrors"
+MIRROR_BASE_DIR="/data/data/com.termux/files/usr/etc/termux/mirrors"
 
 if [ "$1" == "--help" ] || [ "$1" == "-help" ]; then
     echo "Script for choosing a group of mirrors to use."
@@ -14,10 +14,10 @@ fi
 
 unlink_and_link() {
     MIRROR_GROUP="$1"
-    if [ -L "@TERMUX_PREFIX@/etc/termux/chosen_mirrors" ]; then
-        unlink "@TERMUX_PREFIX@/etc/termux/chosen_mirrors"
+    if [ -L "/data/data/com.termux/files/usr/etc/termux/chosen_mirrors" ]; then
+        unlink "/data/data/com.termux/files/usr/etc/termux/chosen_mirrors"
     fi
-    ln -s "${MIRROR_GROUP}" "@TERMUX_PREFIX@/etc/termux/chosen_mirrors"
+    ln -s "${MIRROR_GROUP}" "/data/data/com.termux/files/usr/etc/termux/chosen_mirrors"
 }
 
 select_repository_group() {
@@ -30,7 +30,7 @@ select_repository_group() {
     MIRRORS+=("Mirrors in Oceania" "All in Oceania" "off")
     MIRRORS+=("Mirrors in Russia" "All in Russia" "off")
 
-    local TEMPFILE="$(mktemp @TERMUX_PREFIX@/tmp/mirror.XXXXXX)"
+    local TEMPFILE="$(mktemp /data/data/com.termux/files/usr/tmp/mirror.XXXXXX)"
     dialog \
         --title "termux-change-repo" --clear \
         --radiolist "Which group of mirrors do you want to use? Select with space." 0 0 0 \
@@ -108,7 +108,7 @@ select_individual_mirror() {
         MIRRORS+=("$mirror_url" "$(get_mirror_description "$mirror")" "off")
     done
 
-    local TEMPFILE="$(mktemp @TERMUX_PREFIX@/tmp/mirror.XXXXXX)"
+    local TEMPFILE="$(mktemp /data/data/com.termux/files/usr/tmp/mirror.XXXXXX)"
     dialog \
         --title "termux-change-repo" --clear \
         --radiolist "Which mirror do you want to use? Select with space." 0 0 0 \
@@ -157,9 +157,9 @@ if [ "$TERMUX_APP_PACKAGE_MANAGER" = "pacman" ]; then
     [[ ${REPLY} =~ ^[Nn]$ ]] && exit
 fi
 
-mkdir -p "@TERMUX_PREFIX@/tmp" || exit $?
+mkdir -p "/data/data/com.termux/files/usr/tmp" || exit $?
 
-TEMPFILE="$(mktemp @TERMUX_PREFIX@/tmp/termux-change-repo.XXXXXX)"
+TEMPFILE="$(mktemp /data/data/com.termux/files/usr/tmp/termux-change-repo.XXXXXX)"
 
 MODES=()
 MODES+=("Mirror group" "Rotate between several mirrors (recommended)" "on")

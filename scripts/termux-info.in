@@ -45,14 +45,14 @@ updates() {
 
 repo_subscriptions_apt() {
 	local main_sources
-	main_sources=$(grep -E '^[[:space:]]*deb[[:space:]]' "@TERMUX_PREFIX@/etc/apt/sources.list")
+	main_sources=$(grep -E '^[[:space:]]*deb[[:space:]]' "/data/data/com.termux/files/usr/etc/apt/sources.list")
 
 	if [ -n "$main_sources" ]; then
 		echo "# sources.list"
 		echo "$main_sources"
 	fi
 
-	if [ -d "@TERMUX_PREFIX@/etc/apt/sources.list.d" ]; then
+	if [ -d "/data/data/com.termux/files/usr/etc/apt/sources.list.d" ]; then
 		local filename repo_package supl_sources
 		while read -r filename; do
 			repo_package=$(dpkg -S "$filename" 2>/dev/null | cut -d : -f 1)
@@ -66,13 +66,13 @@ repo_subscriptions_apt() {
 				fi
 				echo "$supl_sources"
 			fi
-		done < <(find "@TERMUX_PREFIX@/etc/apt/sources.list.d" -maxdepth 1 ! -type d)
+		done < <(find "/data/data/com.termux/files/usr/etc/apt/sources.list.d" -maxdepth 1 ! -type d)
 	fi
 }
 
 repo_subscriptions_pacman() {
 	local conf
-	conf="@TERMUX_PREFIX@/etc/pacman.conf"
+	conf="/data/data/com.termux/files/usr/etc/pacman.conf"
 
 	if [[ -f $conf ]]; then
 		echo "# $conf"
@@ -86,7 +86,7 @@ repo_subscriptions_pacman() {
 }
 
 # Setup TERMUX_APP_PACKAGE_MANAGER
-source "@TERMUX_PREFIX@/bin/termux-setup-package-manager" || exit 1
+source "/data/data/com.termux/files/usr/bin/termux-setup-package-manager" || exit 1
 
 case "${TERMUX__USER_ID:-}" in ''|*[!0-9]*|0[0-9]*) TERMUX__USER_ID=0;; esac
 export TERMUX__USER_ID

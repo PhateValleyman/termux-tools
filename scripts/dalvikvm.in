@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # There needs to be a folder at $ANDROID_DATA/dalvik-cache
-export ANDROID_DATA=@TERMUX_PREFIX@/var/android/
+export ANDROID_DATA=/data/data/com.termux/files/usr/var/android/
 mkdir -p $ANDROID_DATA/dalvik-cache
 
 if [ -x /apex/com.android.art/bin/dalvikvm ]; then
@@ -11,4 +11,4 @@ else
 fi
 
 unset LD_LIBRARY_PATH LD_PRELOAD
-exec "$DALVIKVM" -Xusejit:true -Xnoimage-dex2oat -Djava.io.tmpdir=@TERMUX_PREFIX@/tmp "$@"
+exec "$DALVIKVM" -Xusejit:true -Xnoimage-dex2oat -Djava.io.tmpdir=/data/data/com.termux/files/usr/tmp "$@"

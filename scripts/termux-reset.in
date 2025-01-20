@@ -2,7 +2,7 @@
 
 unset LD_PRELOAD LD_LIBRARY_PATH
 
-AM_APK_PATH="@TERMUX_PREFIX@/libexec/termux-am/am.apk"
+AM_APK_PATH="/data/data/com.termux/files/usr/libexec/termux-am/am.apk"
 AM_APK_TMP_PATH="@TERMUX_CACHE_DIR@/termux-am/am.apk"
 
 echo
@@ -38,9 +38,9 @@ else
 		fi
 	fi
 
-	echo "Erasing '@TERMUX_PREFIX@'..."
-	/system/bin/chmod -R 700 "@TERMUX_PREFIX@" >/dev/null 2>&1
-	/system/bin/rm -rf "@TERMUX_PREFIX@"
+	echo "Erasing '/data/data/com.termux/files/usr'..."
+	/system/bin/chmod -R 700 "/data/data/com.termux/files/usr" >/dev/null 2>&1
+	/system/bin/rm -rf "/data/data/com.termux/files/usr"
 	echo "Done. You need to close Termux application now."
 
 	if ! $HAS_TERMUX_AM; then
